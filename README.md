@@ -1,2 +1,6 @@
 # Multi-thread
-My C/C++ implementation of classic multi-thread models
+My pthread, POSIX and C++11 implementation of classic multi-thread models
+
+* Producer-consumer problem
+* Read-write lock
+* Barrier Synchronization
