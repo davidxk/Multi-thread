@@ -15,6 +15,14 @@ void registerFunction()
 {
 	pthread_mutex_lock( &m );
 	printf("--> registered, %s\n", isEvent ? "go ahead!" : "wait ... ");
+	/* The reason we need a variable `isEvent` to mark that the event as
+	 * triggered, instead of just believing the event must have been triggered
+	 * when we wake up from the `wait` call, is because `wait` could just
+	 * return on its own even when no one has called `signal` or `broadcast`.
+	 *
+	 * In Golang, `Wait` cannot return unless awoken by `Signal` or `Broadcast`.
+	 * In this case, there will be no need to have an additional variable.
+	 */
 	while(!isEvent)
 		pthread_cond_wait(&cond, &m);
 	pthread_mutex_unlock( &m );
